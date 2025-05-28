@@ -1,9 +1,8 @@
 # Cache and Revisions Eraser
 
-**Warning:** This project is *deprecated*, only recommended to be used up to DokuWiki 2018-04-22 "Greebo".
+**Warning:** The original project has been *deprecated*. This project is recommended to be used up to DokuWiki 2024-02-06b "Kaos".
 
-
-**Current Version: 1.6.6**
+**Current Version: 1.6.7**
 
 This admin plug-in allows you to erase the entire cache and/or old wiki revisions.
 Only use this plug-in if you want to clean up your wiki or if the cache gets corrupted.
@@ -13,6 +12,11 @@ Once old revisions are erased; there’s no way to restore them.
 Check for additional information at https://www.dokuwiki.org/plugin:cacherevisionseraser
 
 ## What’s new?
+
+v1.6.7
+* A fork from [justburner/DokuWiki_CacheRevisionsEraser](https://github.com/justburner/DokuWiki_CacheRevisionsEraser)
+* Added Chinese language
+* Adjust the inheritance class of admin (According to the dokuwiki version 2024-02-06b "Kaos")
 
 v1.6.6
 * Added Ukrainian Language (Thanks Olexiy Zagorskyi)

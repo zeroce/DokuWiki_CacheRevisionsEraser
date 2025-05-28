@@ -1,4 +1,7 @@
 <?php
+
+use dokuwiki\Extension\AdminPlugin;
+
 /**
  * Cache/Revisions Eraser admin plugin
  * Version : 1.6.6
@@ -18,7 +21,7 @@ define('CACHEREVISIONSERASER_DATE','2010-11-22');
  * All DokuWiki plugins to extend the admin function
  * need to inherit from this class
  */
-class admin_plugin_cacherevisionserase extends DokuWiki_Admin_Plugin {
+class admin_plugin_cacherevisionserase extends AdminPlugin {
 
 	var $cachedir = null;
 	var $revisdir = null;
@@ -54,7 +57,7 @@ class admin_plugin_cacherevisionserase extends DokuWiki_Admin_Plugin {
 	* Return prompt for admin menu
 	*/
 	function getMenuText($language) {
-		return $this->lang['menu'] . ' (v' . CACHEREVISIONSERASER_VER . ')';
+		return $this->getLang('menu') . ' (v' . CACHEREVISIONSERASER_VER . ')';
 	}
 
 	/**
