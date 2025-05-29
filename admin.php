@@ -13,7 +13,8 @@ use dokuwiki\Extension\AdminPlugin;
 if(!defined('DOKU_INC')) define('DOKU_INC',realpath(dirname(__FILE__).'/../../').'/');
 if(!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
 require_once(DOKU_PLUGIN.'admin.php');
-define('CACHEREVISIONSERASER_VER','1.6.6');
+require_once(DOKU_INC.'inc/init.php');
+define('CACHEREVISIONSERASER_VER','1.6.7');
 define('CACHEREVISIONSERASER_CONFIGREVISION',2);
 define('CACHEREVISIONSERASER_DATE','2010-11-22');
 
@@ -34,7 +35,7 @@ class admin_plugin_cacherevisionserase extends AdminPlugin {
 	/**
 	* Constructor
 	*/
-	function admin_plugin_cacherevisionserase(){
+	function __construct(){
 		$this->setupLocale();
 		@include(dirname(__FILE__).'/configs.php');
 	}
@@ -73,14 +74,14 @@ class admin_plugin_cacherevisionserase extends AdminPlugin {
 	*/
 	function handle() {
 		global $conf;
-		$this->cachedir = $conf['cachedir'];
-		$this->revisdir = $conf['olddir'];
-		$this->pagesdir = $conf['datadir'];
-		if ($this->pagesdir == $null) $this->pagesdir = $conf['savedir']; // Olders versions compability?
-		$this->metadir = $conf['metadir'];
-		if ($this->metadir == $null) $this->metadir = $conf['meta'];      // Olders versions compability?
-		$this->locksdir = $conf['lockdir'];
-		if ($this->locksdir == $null) $this->locksdir = $this->pagesdir;  // Olders versions compability?
+		$this->cachedir = $conf['cachedir'];	// This configuration item is deprecated
+		$this->revisdir = $conf['olddir'];		// This configuration item is deprecated
+		$this->pagesdir = $conf['datadir'];		// This configuration item is deprecated
+		if ($this->pagesdir == null) $this->pagesdir = $conf['savedir']; // Olders versions compability?
+		$this->metadir = $conf['metadir'];		// This configuration item is deprecated
+		if ($this->metadir == null) $this->metadir = $conf['meta'];      // Olders versions compability?
+		$this->locksdir = $conf['lockdir'];		// This configuration item is deprecated
+		if ($this->locksdir == null) $this->locksdir = $this->pagesdir;  // Olders versions compability?
 		$this->lang_id = $conf['lang'];
 		if (!($this->configs['confrevision'] > 0)) $this->configs['confrevision'] = 0;
 		$this->locktime = $conf['locktime'];
@@ -215,6 +216,14 @@ class admin_plugin_cacherevisionserase extends AdminPlugin {
 				ptln('<input type="hidden" name="do" value="admin" />');
 				ptln('<input type="hidden" name="page" value="cacherevisionserase" />');
 				ptln('<input type="hidden" name="cmd" value="erasecache" />');
+				if ($this->configs['cache_delext_repo'] < 0)
+					ptln('<input type="checkbox" name="delfl_repo" value="yes" '.(($this->configs['cache_delext_repo']+2) ? 'checked="checked"' : '').' />&nbsp;'.$this->lang['extdesc_repo'].'<br />');
+				else
+					ptln('<input type="checkbox" name="delfl_repo" value="yes" '.($this->configs['cache_delext_repo'] ? 'checked="checked"' : '').' disabled />&nbsp;'.$this->lang['extdesc_repo'].'<br />');
+				if ($this->configs['cache_delext_gz'] < 0)
+					ptln('<input type="checkbox" name="delfl_gz" value="yes" '.(($this->configs['cache_delext_gz']+2) ? 'checked="checked"' : '').' />&nbsp;'.$this->lang['extdesc_gz'].'<br />');
+				else
+					ptln('<input type="checkbox" name="delfl_gz" value="yes" '.($this->configs['cache_delext_gz'] ? 'checked="checked"' : '').' disabled />&nbsp;'.$this->lang['extdesc_gz'].'<br />');
 				if ($this->configs['cache_delext_i'] < 0)
 					ptln('<input type="checkbox" name="delfl_i" value="yes" '.(($this->configs['cache_delext_i']+2) ? 'checked="checked"' : '').' />&nbsp;'.$this->lang['extdesc_i'].'<br />');
 				else
