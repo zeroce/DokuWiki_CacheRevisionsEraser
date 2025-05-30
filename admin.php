@@ -14,15 +14,17 @@ if(!defined('DOKU_INC')) define('DOKU_INC',realpath(dirname(__FILE__).'/../../')
 if(!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
 require_once(DOKU_PLUGIN.'admin.php');
 require_once(DOKU_INC.'inc/init.php');
-define('CACHEREVISIONSERASER_VER','1.6.7');
-define('CACHEREVISIONSERASER_CONFIGREVISION',2);
-define('CACHEREVISIONSERASER_DATE','2010-11-22');
+define('CACHEREVISIONSERASER2_VER','1.6.7');
+define('CACHEREVISIONSERASER2_CONFIGREVISION',2);
+define('CACHEREVISIONSERASER2_DATE','2010-11-22');
 
 /**
  * All DokuWiki plugins to extend the admin function
  * need to inherit from this class
+ * 
+ * The class name needs to be consistent with the name of the plugin page
  */
-class admin_plugin_cacherevisionserase extends AdminPlugin {
+class admin_plugin_cacherevisionseraser2 extends AdminPlugin {
 
 	var $cachedir = null;
 	var $revisdir = null;
@@ -47,7 +49,7 @@ class admin_plugin_cacherevisionserase extends AdminPlugin {
 		return array(
 			'author' => 'JustBurn',
 			'email'  => 'justburner@armail.pt',
-			'date'   => CACHEREVISIONSERASER_DATE,
+			'date'   => CACHEREVISIONSERASER2_DATE,
 			'name'   => html_entity_decode($this->lang['title']),
 			'desc'   => html_entity_decode($this->lang['desc']),
 			'url'    => 'http://wiki.splitbrain.org/plugin:cacherevisionseraser',
@@ -58,7 +60,7 @@ class admin_plugin_cacherevisionserase extends AdminPlugin {
 	* Return prompt for admin menu
 	*/
 	function getMenuText($language) {
-		return $this->getLang('menu') . ' (v' . CACHEREVISIONSERASER_VER . ')';
+		return $this->getLang('menu') . ' (v' . CACHEREVISIONSERASER2_VER . ')';
 	}
 
 	/**
@@ -121,7 +123,7 @@ class admin_plugin_cacherevisionserase extends AdminPlugin {
 		$cmd = $this->get_req('cmd', 'main');
 
 		// Plug-in title
-		ptln('<h1>'.$this->lang['title'].' '.$this->lang['version'].' '.CACHEREVISIONSERASER_VER.'</h1>');
+		ptln('<h1>'.$this->lang['title'].' '.$this->lang['version'].' '.CACHEREVISIONSERASER2_VER.'</h1>');
 
 		// Make sure outputinfo level is valid
 		$theoutputinfo = intval($this->get_req('level_outputinfo', 0));
@@ -136,7 +138,7 @@ class admin_plugin_cacherevisionserase extends AdminPlugin {
 			ptln('<table class="inline">');
 			ptln('<tr><th class="centeralign"><strong>Debugging information</strong></th></tr>');
 			ptln('<tr><th>');
-			ptln('config revision: <em>'.$this->configs['confrevision'].' (require '.CACHEREVISIONSERASER_CONFIGREVISION.')</em><br />');
+			ptln('config revision: <em>'.$this->configs['confrevision'].' (require '.CACHEREVISIONSERASER2_CONFIGREVISION.')</em><br />');
 			ptln('admin menu position: <em>'.$this->configs['menusort'].'</em><br />');
 			ptln('language (C/R E.): <em>'.$this->lang['language'].'</em><br />');
 			ptln('cachedir: <em>'.$this->cachedir.'</em><br />');
@@ -513,7 +515,7 @@ class admin_plugin_cacherevisionserase extends AdminPlugin {
 			ptln('<strong>'.$this->lang['analyze_confmissingfailed'].' (ERR: 1)</strong><br />');
 			$analizysucessy = false;
 		}
-		if (($this->configs['confrevision'] != CACHEREVISIONSERASER_CONFIGREVISION) && ($analizysucessy)) {
+		if (($this->configs['confrevision'] != CACHEREVISIONSERASER2_CONFIGREVISION) && ($analizysucessy)) {
 			ptln('<strong>'.$this->lang['analyze_confrevisionfailed'].' (ERR: 2)</strong><br />');
 			$analizysucessy = false;
 		}
@@ -653,7 +655,7 @@ class admin_plugin_cacherevisionserase extends AdminPlugin {
 		$cahdel_revisfiles = -2 + $this->cmp_req('del_revis_A', 'yes', 0, 2) + $this->cmp_req('del_revis_C', 'yes', 1, 0);
 		$wcnf = fopen(dirname(__FILE__).'/configs.php', 'w');
 		fwrite($wcnf, "<?php\n/**\n * Cache/Revisions Eraser configuration file\n *\n * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)\n * @author     JustBurn <justburner@armail.pt>\n *\n *\n");
-		fwrite($wcnf, " * Generated automatically by the plug-in, Cache/Revisions Eraser v" . CACHEREVISIONSERASER_VER . "\n *\n */\n\n");
+		fwrite($wcnf, " * Generated automatically by the plug-in, Cache/Revisions Eraser v" . CACHEREVISIONSERASER2_VER . "\n *\n */\n\n");
 		fwrite($wcnf, '$this->configs[\'confrevision\'] = 2;' . "\n");
 		if ((intval($this->get_req('menusort','67')) >= 0) && (intval($this->get_req('menusort','67')) <= 99))
 			fwrite($wcnf, '$this->configs[\'menusort\'] = ' . intval($this->get_req('menusort','67')) . ";\n");

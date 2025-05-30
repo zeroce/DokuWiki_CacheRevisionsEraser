@@ -1,7 +1,7 @@
-base   cacherevisionseraser
+base   cacherevisionseraser2
 author zeroce
 email  zx79239841@163.com
 date   2025-05-29
-name   Cache and Revisions Eraser
+name   Cache/Revisions Eraser 2 Plugin
 desc   Erase entire cache and/or old wiki revisions
 url    https://www.dokuwiki.org/plugin:cacherevisionseraser2
